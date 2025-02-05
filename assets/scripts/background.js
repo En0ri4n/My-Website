@@ -1,4 +1,4 @@
-import { setCardColor } from "./main.js";
+import { setCardsColor } from "./main.js";
 
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
@@ -73,7 +73,7 @@ function init() {
         particlesArray.push(new Particle(x, y, directionX, directionY, size));
     }
 
-    setCardColor(hexToRgb(matchingColors[randomColorIndex][0]));
+    setCardsColor(hexToRgb(matchingColors[randomColorIndex][0]));
 }
 
 function connect() {

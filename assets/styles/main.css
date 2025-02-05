@@ -26,36 +26,62 @@ body {
     padding: 2rem;
 
     .card-holder {
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
 
         background-color: rgba(255, 255, 255, 0.3);
-        /*width: calc(90% / 3);*/
-        /*height: 45%;*/
+        width: calc(90% / 3); /* Temporary fix */
+        height: 45%; /* Temporary fix */
+
+        &.disabled {
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        &.card-open {
+            width: 100%;
+            height: 100%;
+        }
 
         .card {
+            position: relative;
             padding: 2rem;
             border-radius: 20px;
             cursor: pointer;
+            transition: all 0.5s ease-in-out;
 
-            &:hover {
+            &:not(.card-open):hover {
                 filter: brightness(1.1);
-                animation: hover-grow 0.5s forwards;
+                transform: scale(1.05) perspective(1px);
             }
 
-            /*&:not(:hover) {*/
-            /*    animation: hover-grow 0.5s reverse forwards;*/
-            /*}*/
+            &.card-open {position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+                height: 80%;
+                z-index: 10;
+                cursor: default;
+                animation: card-opening 0.5s ease-in-out forwards;
+            }
+
+            .card-content {
+                display: none;
+            }
         }
     }
 }
 
-@keyframes hover-grow {
+@keyframes card-opening {
     0% {
-        transform: scale(1);
+        width: 10%;
+        height: 10%;
     }
     100% {
-        transform: scale(1.1);
+        width: 80%;
+        height: 80%;
     }
 }
