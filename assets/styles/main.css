@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
+:root {
+    --card-height: 30%;
+    --card-width: 60%;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +18,19 @@ body {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#title {
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    h1 {
+        padding: 0.2rem;
+        text-align: center;
+    }
 }
 
 #card-container {
@@ -21,28 +39,68 @@ body {
     justify-content: space-around;
     align-items: center;
 
-    height: 100%;
-    width: 100%;
+    flex: 1 0 auto;
+
     padding: 2rem;
 
     .card-holder {
-        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        background-color: rgba(255, 255, 255, 0.3);
-        width: calc(90% / 3); /* Temporary fix */
-        height: 45%; /* Temporary fix */
+        /*background-color: rgba(255, 255, 255, 0.3);*/
+        width: calc(90% / 3); /* Temporary */
+        height: 45%; /* Temporary */
 
-        &.disabled {
+        transition: all 1s ease-in-out;
+
+        /* When a top card is opened */
+        &.top.disabled-from-top, &.bottom.disabled-from-top {
             pointer-events: none;
             opacity: 0;
+            height: 0;
+            width: 0;
+        }
+        &.top.disabled-from-bottom {
+            pointer-events: none;
+            opacity: 0;
+            height: 0;
+        }
+        &.bottom.disabled-from-bottom {
+            pointer-events: none;
+            opacity: 0;
+            width: 3px;
+            height: 0;
         }
 
-        &.card-open {
+        &.opened {
+            padding: 1rem;
             width: 100%;
             height: 100%;
+
+            .card {
+                width: 100%;
+                height: 100%;
+                cursor: default;
+                animation: floating 5s ease-in-out infinite;
+
+                /* When a card is opened  reset the hover effect */
+                &:hover {
+                    filter: brightness(1);
+                    transform: scale(1);
+                }
+
+                .top-bar {
+                    .close-button {
+                        display: block;
+                    }
+                }
+
+                .card-content {
+                    display: block;
+                    animation: appear-after 3s forwards;
+                }
+            }
         }
 
         .card {
@@ -50,38 +108,112 @@ body {
             padding: 2rem;
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.5s ease-in-out;
+            transition: all 1s ease-in-out;
+            animation: floating 4s ease-in-out infinite;
 
-            &:not(.card-open):hover {
+            width: 60%;
+            height: 30%;
+
+            display: flex;
+            flex-direction: column;
+
+            &:hover {
                 filter: brightness(1.1);
                 transform: scale(1.05) perspective(1px);
             }
 
-            &.card-open {position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 80%;
-                height: 80%;
-                z-index: 10;
-                cursor: default;
-                animation: card-opening 0.5s ease-in-out forwards;
+            .top-bar {
+                display: flex;
+                justify-content: end;
+                transition: all 0.5s ease-in-out;
+
+                .close-button {
+                    display: none;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 2rem;
+                    line-height: 1;
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+                }
             }
 
             .card-content {
+                flex: 1 1 auto;
+                transition: all 0.5s ease-in-out;
+                animation: ease-in-out 0.5s;
+
+                overflow-y: scroll;
+
                 display: none;
             }
         }
     }
 }
 
-@keyframes card-opening {
+.card-holder.disabled-from-bottom *, .card-holder.disabled-from-top * {
+    display: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.card-content {
+
+}
+
+@keyframes appear-after {
     0% {
-        width: 10%;
-        height: 10%;
+        opacity: 0;
+        width: 0;
+        height: 0;
     }
+
     100% {
-        width: 80%;
-        height: 80%;
+        opacity: 1;
+        width: auto;
+        height: auto;
     }
 }
+
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes grow {
+    0% {
+        width: var(--card-width);
+        height: var(--card-height);
+    }
+
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@keyframes shrink {
+    0% {
+        width: 100%;
+        height: 100%;
+    }
+
+    100% {
+        width: var(--card-width);
+        height: var(--card-height);
+    }
+}
+

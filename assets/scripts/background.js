@@ -1,4 +1,4 @@
-import { setCardsColor } from "./main.js";
+import { initColor } from "./main.js";
 
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
@@ -22,7 +22,7 @@ const matchingColors = [
     ['#F9957F', '#F2F5D0'],
     ['#B60F46', '#D592FF'],
     ['#A3C9E2', '#9618F7'],
-    ['#FF0078', '#F6EFA7'],
+    ['#CD005F', '#F6EFA7'],
 ]
 
 const randomColorIndex = Math.floor(Math.random() * matchingColors.length);
@@ -73,7 +73,7 @@ function init() {
         particlesArray.push(new Particle(x, y, directionX, directionY, size));
     }
 
-    setCardsColor(hexToRgb(matchingColors[randomColorIndex][0]));
+    initColor(hexToRgb(matchingColors[randomColorIndex][0]));
 }
 
 function connect() {
