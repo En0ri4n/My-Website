@@ -1,4 +1,4 @@
-export { initColor };
+export {initColors};
 
 function getCards() {
     return document.querySelectorAll('.card').values().toArray();
@@ -6,10 +6,12 @@ function getCards() {
 
 /* ========== Exported functions ========== */
 
-function initColor(color) {
-    getCards().forEach(c => c.style.backgroundColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.8)`);
+function initColors(primaryColor, secondaryColor) {
+    getCards().forEach(c => c.style.backgroundColor = `rgba(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b}, 0.8)`);
 
-    createScrollbarStyle(color);
+    createScrollbarStyle(primaryColor);
+
+    setSocialMediaColor(primaryColor, secondaryColor);
 }
 
 /* ======== Exported functions end ======== */
@@ -25,6 +27,15 @@ function adjustBrightness(color, percent) {
         g: Math.min(255, Math.max(0, Math.round(color.g + color.g * factor))),
         b: Math.min(255, Math.max(0, Math.round(color.b + color.b * factor)))
     };
+}
+
+function setSocialMediaColor(primaryColor, secondaryColor) {
+    primaryColor = adjustBrightness(primaryColor, 20);
+    secondaryColor = adjustBrightness(secondaryColor, 20);
+
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = `.social-media a::after { background: linear-gradient(-45deg, rgba(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b}, 1), rgba(${secondaryColor.r}, ${secondaryColor.g}, ${secondaryColor.b}, 1)); }`;
+    document.head.appendChild(styleElement);
 }
 
 function createScrollbarStyle(color) {
@@ -75,7 +86,7 @@ function setupTopBars() {
 function setupCloseButtons() {
     document.querySelectorAll('.close-button').forEach(closeButton => closeButton.addEventListener('click', (evt) => {
         evt.stopPropagation();
-        closeCard(closeButton.parentElement /* <= Top bar */ .parentElement /* <= Card */ .parentElement /* <= Card holder */ );
+        closeCard(closeButton.parentElement /* <= Top bar */.parentElement /* <= Card */.parentElement /* <= Card holder */);
         removeDisabledFromCardHolders();
     }));
 }

@@ -24,9 +24,10 @@ body {
 }
 
 #title {
-    flex: 0 0 auto;
+    position: absolute;
+    margin: 0.5rem;
+    width: 99vw;
 
-    margin: 10px;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     h1 {
@@ -41,7 +42,8 @@ body {
     justify-content: space-around;
     align-items: center;
 
-    flex: 1 0 auto;
+    flex: 1 0 100%;
+    min-height: 0;
 
     padding: 2rem;
 
@@ -80,7 +82,7 @@ body {
             padding: 2rem;
             border-radius: 20px;
             cursor: pointer;
-            transition: all 1s ease-in-out;
+            transition: all 0.5s ease-in-out;
             animation: floating 4s ease-in-out infinite;
 
             width: 60%;
@@ -89,8 +91,12 @@ body {
             display: flex;
             flex-direction: column;
 
+            h1 {
+                text-align: center;
+            }
+
             &:hover {
-                filter: brightness(1.1);
+                filter: brightness(1.3);
                 transform: scale(1.05) perspective(1px);
             }
 
@@ -116,11 +122,11 @@ body {
             }
 
             .card-content {
-                flex: 0 1 auto;
+                flex: 1 1 auto;
                 transition: all 0.5s ease-in-out;
                 animation: ease-in-out 0.5s;
 
-                overflow-y: scroll;
+                overflow-y: auto;
 
                 display: none;
             }
@@ -128,9 +134,10 @@ body {
 
         &.opened {
             flex: 0 1 auto;
-            padding: 1rem;
+            padding: 4rem 1rem 1rem 1rem;
             width: 100%;
             height: 100%;
+
 
             .card {
                 width: 100%;
@@ -151,8 +158,8 @@ body {
                 }
 
                 .card-content {
-                    display: block;
-                    animation: appear-after 3s forwards;
+                    display: flex;
+                    animation: appear-after 4s forwards;
                 }
             }
         }
@@ -165,13 +172,150 @@ body {
 }
 
 #card-description {
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*padding: 1rem;*/
-    /*background-color: rgba(255, 255, 255, 0.3);*/
-    /*border-radius: 10px;*/
-    /*margin: 10px;*/
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    img {
+        width: 10%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+}
+
+#card-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .social-media {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: row;
+
+        width: 100%;
+
+        .social-media-container {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.5rem;
+            h2 {
+                text-align: center;
+            }
+
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: black;
+                width: 7rem;
+                height: 7rem;
+                text-align: center;
+                text-decoration: none;
+                color: #FFF;
+                box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
+                margin: 0 30px;
+                border-radius: 50%;
+                position: relative;
+                overflow: hidden;
+                transition: transform 0.5s;
+
+                &:hover {
+                    transform: translateY(-10px);
+                }
+
+                &::after {
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    top: -7rem;
+                    left: 0;
+                    /*background: #000;*/
+                    /*background: linear-gradient(-45deg, #ed1c94, #ffec17);*/
+                    position: absolute;
+                    transition: 0.5s;
+                }
+
+                &:hover::after {
+                    top: 0;
+                }
+
+                &:hover .fab, &:hover .fa {
+                    color: #fff;
+                }
+
+                .fab, .fa {
+                    font-size: 3.5rem;
+                    line-height: 80px;
+                    position: relative;
+                    z-index: 10;
+                    transition: color 0.5s;
+                }
+            }
+        }
+    }
+}
+
+#card-cv-resume {
+    iframe {
+        width: 100%;
+    }
+}
+
+#card-portfolio {
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+
+    .project {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        margin: 1rem;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+            transform: scale(1.01);
+        }
+
+        .project-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        img {
+            width: 30%;
+            border-radius: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: all 0.5s ease-in-out;
+
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+    }
 }
 
 @keyframes appear-after {
