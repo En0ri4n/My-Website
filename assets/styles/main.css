@@ -159,7 +159,7 @@ body {
 
                 .card-content {
                     display: flex;
-                    animation: appear-after 4s forwards;
+                    animation: appear-after 2s forwards;
                 }
             }
         }
@@ -325,9 +325,16 @@ body {
         height: 0;
     }
 
+    75% {
+        opacity: 0;
+        width: auto;
+        display: flex;
+    }
+
     100% {
         opacity: 1;
         width: auto;
+        display: flex;
     }
 }
 
