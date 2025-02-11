@@ -7,7 +7,7 @@ function getCards() {
 /* ========== Exported functions ========== */
 
 function initColors(primaryColor, secondaryColor) {
-    getCards().forEach(c => c.style.backgroundColor = `rgba(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b}, 0.8)`);
+    setCardsColor(primaryColor, secondaryColor);
 
     createScrollbarStyle(primaryColor);
 
@@ -27,6 +27,17 @@ function adjustBrightness(color, percent) {
         g: Math.min(255, Math.max(0, Math.round(color.g + color.g * factor))),
         b: Math.min(255, Math.max(0, Math.round(color.b + color.b * factor)))
     };
+}
+
+function setCardsColor(primaryColor, secondaryColor) {
+    primaryColor = adjustBrightness(primaryColor, -20);
+    getCards().forEach(c => c.style.backgroundColor = `rgba(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b}, 0.9)`);
+
+    secondaryColor = adjustBrightness(secondaryColor, -20);
+    document.querySelectorAll('#card-portfolio > .project > .project-row p a').forEach(a =>
+    {
+        a.style.color = `rgba(${secondaryColor.r}, ${secondaryColor.g}, ${secondaryColor.b}, 1)`
+    });
 }
 
 function setSocialMediaColor(primaryColor, secondaryColor) {
@@ -67,6 +78,33 @@ function init() {
     setupTopBars();
 
     setupCloseButtons();
+
+    initializeClickables();
+
+    initializeZoomableImages();
+}
+
+function initializeZoomableImages() {
+    const zoomableImageContainer = document.querySelector('#zoomable-image-container');
+    zoomableImageContainer.addEventListener('click', () => zoomableImageContainer.style.display = 'none');
+
+    const zoomableImage = zoomableImageContainer.querySelector('img');
+
+    document.querySelectorAll('.zoomable').forEach(clickedZoomable =>
+        clickedZoomable.addEventListener('click', (evt) =>
+    {
+        evt.stopPropagation();
+        zoomableImage.src = clickedZoomable.src;
+        zoomableImageContainer.style.display = 'flex';
+    }));
+}
+
+function initializeClickables() {
+    document.querySelectorAll('.clickable').forEach(clickable => clickable.addEventListener('click', (evt) =>
+    {
+        evt.stopPropagation();
+        window.open(clickable.getAttribute('clickable-href'), '_blank');
+    }));
 }
 
 function setupTopBars() {
@@ -121,5 +159,7 @@ function closeCard(cardHolder) {
 function openCard(cardHolder) {
     cardHolder.classList.add('opened');
 }
+
+/* ======== Internal functions end ======== */
 
 init();

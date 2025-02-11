@@ -42,10 +42,12 @@ body {
     justify-content: space-around;
     align-items: center;
 
+    color: white;
+
     flex: 1 0 100%;
     min-height: 0;
 
-    padding: 2rem;
+    padding: 1rem;
 
     .card-holder {
         display: flex;
@@ -85,14 +87,21 @@ body {
             transition: all 0.5s ease-in-out;
             animation: floating 4s ease-in-out infinite;
 
-            width: 60%;
-            height: 30%;
+            width: var(--card-width);
+            height: var(--card-height);
 
             display: flex;
+            justify-content: center;
             flex-direction: column;
 
-            h1 {
-                text-align: center;
+            .card-name-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                h1 {
+                    text-align: center;
+                    font-size: 1.7cqw;
+                }
             }
 
             &:hover {
@@ -129,12 +138,20 @@ body {
                 overflow-y: auto;
 
                 display: none;
+
+                .separator {
+                    width: 100%;
+                    height: 3px;
+                    background-color: #fff;
+                    border-radius: 10%;
+                    margin: 1rem 0;
+                }
             }
         }
 
         &.opened {
             flex: 0 1 auto;
-            padding: 4rem 1rem 1rem 1rem;
+            padding: 4rem 0 0 0;
             width: 100%;
             height: 100%;
 
@@ -171,15 +188,36 @@ body {
     transition: all 0.5s ease-in-out;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 #card-description {
     display: flex;
     flex-direction: column;
     padding: 1rem;
 
+    .paragraph {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        column-gap: 2rem;
+
+        p {
+            text-align: justify;
+        }
+
+        img {
+            width: 15%;
+            margin: 2rem;
+            background-color: #FFFFFF;
+        }
+    }
+
     img {
         width: 10%;
         object-fit: cover;
-        border-radius: 20px;
+        border-radius: 10px;
     }
 }
 
@@ -278,7 +316,7 @@ body {
         padding: 1rem;
         margin: 1rem;
         border-radius: 20px;
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(0, 0, 0, 0.3);
         box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
         transition: all 0.5s ease-in-out;
 
@@ -288,16 +326,34 @@ body {
 
         .project-row {
             display: flex;
-            justify-content: space-between;
-        }
+            width: 100%;
 
-        img {
-            width: 30%;
-            border-radius: 20px;
+            p {
+                flex: 1 0 75%;
+                text-align: justify;
+
+                a {
+                    background-color: transparent;
+                    padding: 0;
+                    color: saddlebrown;
+
+                    &:hover {
+                        color: black;
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            img {
+                width: 25%;
+                margin: 1rem;
+                border-radius: 20px;
+            }
         }
 
         h2 {
             text-align: center;
+            margin-bottom: 0.5rem;
         }
 
         a {
@@ -314,6 +370,39 @@ body {
                 background-color: #000;
                 color: #fff;
             }
+        }
+    }
+}
+
+#zoomable-image-container {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    a {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 1rem;
+        color: #fff;
+        text-decoration: none;
+        font-size: 2rem;
+        cursor: pointer;
+
+        &:hover {
+            color: rgb(198, 198, 198);
         }
     }
 }
@@ -344,7 +433,7 @@ body {
     }
 
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 
     100% {
