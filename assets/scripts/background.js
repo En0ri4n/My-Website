@@ -1,4 +1,4 @@
-import { initColors } from "./main.js";
+import {getDotColor, getLineColor, initColors, hexToRgb} from "./main.js";
 
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
@@ -6,29 +6,6 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particlesArray;
-
-const hexToRgb = (hex) => {
-    const bigint = parseInt(hex.substring(1, hex.length), 16);
-    return {r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255};
-}
-
-const matchingColors = [
-    ['#EEBD89', '#D13ABD'],
-    ['#9600FF', '#AEBAF8'],
-    ['#849B5C', '#BFFFC7'],
-    ['#BB73E0', '#FF8DDB'],
-    ['#0CCDA3', '#C1FCD3'],
-    ['#C973FF', '#AEBAF8'],
-    ['#F9957F', '#F2F5D0'],
-    ['#B60F46', '#D592FF'],
-    ['#A3C9E2', '#9618F7'],
-    ['#CD005F', '#F6EFA7'],
-]
-
-const randomColorIndex = Math.floor(Math.random() * matchingColors.length);
-
-const lineColor = hexToRgb(matchingColors[randomColorIndex][0]);
-const dotColor = matchingColors[randomColorIndex][1];
 
 class Particle {
     constructor(x, y, directionX, directionY, size) {
@@ -42,7 +19,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = dotColor;
+        ctx.fillStyle = getDotColor();
         ctx.fill();
     }
 
@@ -73,7 +50,7 @@ function init() {
         particlesArray.push(new Particle(x, y, directionX, directionY, size));
     }
 
-    initColors(hexToRgb(matchingColors[randomColorIndex][0]), hexToRgb(matchingColors[randomColorIndex][1]));
+    initColors(hexToRgb(getLineColor()), hexToRgb(getDotColor()));
 }
 
 function connect() {
@@ -82,8 +59,9 @@ function connect() {
         for (let b = a; b < particlesArray.length; b++) {
             let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
             if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                const color = hexToRgb(getLineColor());
                 opacityValue = 1 - (distance / 50000);
-                ctx.strokeStyle = `rgba(${lineColor.r}, ${lineColor.g}, ${lineColor.b}, ${opacityValue})`;
+                ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${opacityValue})`;
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
