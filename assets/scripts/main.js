@@ -26,6 +26,14 @@ function getRandomColorIndex() {
     return Math.floor(Math.random() * matchingColors.length);
 }
 
+function getDifferentRandomColorIndex() {
+    let newRandomColorIndex = getRandomColorIndex();
+    while (newRandomColorIndex === randomColorIndex) {
+        newRandomColorIndex = getRandomColorIndex();
+    }
+    return newRandomColorIndex;
+}
+
 function initColors(primaryColor, secondaryColor) {
     setCardsColor(primaryColor, secondaryColor);
 
@@ -135,7 +143,11 @@ function init() {
 function setupChangeColorButton() {
     const changeColorButton = document.querySelector('#change-color');
     changeColorButton.addEventListener('click', () => {
-        randomColorIndex = getRandomColorIndex();
+        randomColorIndex = getDifferentRandomColorIndex();
+        changeColorButton.style.animationName = 'reload-animation';
+        changeColorButton.style.animationDuration = '1s';
+        changeColorButton.style.animationFillMode = 'forwards';
+        setTimeout(() => changeColorButton.style.animationName = '', 1000);
 
         initColors(hexToRgb(getLineColor()), hexToRgb(getDotColor()));
     });
@@ -194,12 +206,20 @@ function onClickOnCard(currentCard) {
             const cardHolder = card.parentElement;
             cardHolder.classList.add(currentCardHolder.classList.contains('top') ? 'disabled-from-top' : 'disabled-from-bottom');
         }
+        for (let cardHolderRow of document.querySelectorAll('.card-holder-row').values().filter(row => row !== currentCardHolder.parentElement)) {
+            cardHolderRow.classList.add('closing');
+            setTimeout(() => cardHolderRow.classList.remove('closing'), 1000);
+        }
         openCard(currentCardHolder);
     }
 }
 
 function removeDisabledFromCardHolders() {
     for (let cardHolder of document.querySelectorAll('.card-holder')) {
+        if (cardHolder.classList.contains('disabled-from-top') || cardHolder.classList.contains('disabled-from-bottom')) {
+            cardHolder.classList.add('closing');
+            setTimeout(() => cardHolder.classList.remove('closing'), 1000);
+        }
         cardHolder.classList.remove('disabled-from-top');
         cardHolder.classList.remove('disabled-from-bottom');
     }
@@ -211,6 +231,12 @@ function isCardOpened(cardHolder) {
 
 function closeCard(cardHolder) {
     cardHolder.classList.remove('opened');
+    document.querySelectorAll('.card-holder-row').forEach(row => {
+        if (row !== cardHolder.parentElement /* <= Card Holder Row */) {
+            row.classList.add('reopening');
+            setTimeout(() => row.classList.remove('reopening'), 1000);
+        }
+    })
 }
 
 function openCard(cardHolder) {
