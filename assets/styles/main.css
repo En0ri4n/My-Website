@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 :root {
-    --card-height: 50%;
+    --card-height: 30%;
     --card-width: 70%;
 }
 
@@ -24,10 +24,8 @@ body {
 }
 
 #title {
-    position: absolute;
     margin: 0.5rem;
     padding: 0 1em;
-    width: 99vw;
 
     display: flex;
     justify-content: space-between;
@@ -54,13 +52,13 @@ body {
 
 #card-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
 
     color: white;
 
-    flex: 1 0 100%;
+    flex: 1 1 auto;
     min-height: 0;
 
     padding: 1rem;
@@ -87,11 +85,12 @@ body {
             pointer-events: none;
             opacity: 0;
             height: 0;
+            width: 0;
         }
         &.bottom.disabled-from-bottom {
             pointer-events: none;
             opacity: 0;
-            width: 3px;
+            width: 0;
             height: 0;
         }
 
