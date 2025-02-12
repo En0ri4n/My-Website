@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 :root {
-    --card-height: 30%;
-    --card-width: 60%;
+    --card-height: 50%;
+    --card-width: 70%;
 }
 
 * {
@@ -96,8 +96,7 @@ body {
         }
 
         .card {
-            position: relative;
-            padding: 2rem;
+            padding: 2em;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.5s ease-in-out;
@@ -115,8 +114,9 @@ body {
                 justify-content: center;
                 align-items: center;
                 h1 {
+                    transition: all 0.5s ease-in-out;
                     text-align: center;
-                    font-size: 1.7cqw;
+                    font-size: 3cqh;
                 }
             }
 
@@ -166,10 +166,11 @@ body {
         }
 
         &.opened {
-            flex: 0 1 auto;
-            padding: 4rem 0 0 0;
+            flex: 0 0 auto;
+            padding: 0;
             width: 100%;
             height: 100%;
+            animation: update-align 1s forwards;
 
 
             .card {
@@ -420,6 +421,131 @@ body {
         &:hover {
             color: rgb(198, 198, 198);
         }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #card-container {
+        flex: 1 1 auto;
+        row-gap: 0.5rem;
+
+        &:has(.card-holder.opened) {
+            row-gap: 0;
+        }
+
+        .card-holder {
+            height: 10%;
+            width: 100%;
+            font-size: 1rem;
+
+            &.top.disabled-from-top, &.bottom.disabled-from-top, &.top.disabled-from-bottom, &.bottom.disabled-from-bottom {
+                pointer-events: none;
+                opacity: 0;
+                height: 0;
+                width: 100%;
+            }
+
+            .card {
+                padding: 1rem;
+                width: 90%;
+                height: 100%;
+                font-size: 1rem;
+            }
+
+            &.opened {
+                padding: 0;
+
+                .card {
+                    padding: 1rem;
+                }
+            }
+        }
+    }
+
+    #card-description {
+        .paragraph {
+            flex-direction: column;
+            img {
+                width: 50%;
+            }
+        }
+    }
+
+    #card-portfolio {
+        .project {
+            .project-row {
+                flex-direction: column;
+                align-items: center;
+                img {
+                    width: 50%;
+                }
+            }
+        }
+    }
+
+    #card-contact {
+        .social-media {
+            flex-direction: column;
+            row-gap: 1rem;
+            .social-media-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+
+
+                column-gap: 1rem;
+                a {
+                    text-align: center;
+                    .fab, .fa {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes grow-height {
+    0% {
+        flex: 0 0 0;
+    }
+
+    100% {
+        flex: 1 0 auto;
+    }
+}
+
+@keyframes shrink-height {
+    0% {
+        flex: 1 0 auto;
+    }
+
+    100% {
+        flex: 0 0 0;
+    }
+}
+
+@keyframes reload-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes update-align {
+    0% {
+        align-items: center;
+    }
+
+    99% {
+        align-items: center;
+    }
+
+    100% {
+        align-items: flex-start;
     }
 }
 

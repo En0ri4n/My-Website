@@ -26,6 +26,14 @@ function getRandomColorIndex() {
     return Math.floor(Math.random() * matchingColors.length);
 }
 
+function getDifferentRandomColorIndex() {
+    let newRandomColorIndex = getRandomColorIndex();
+    while (newRandomColorIndex === randomColorIndex) {
+        newRandomColorIndex = getRandomColorIndex();
+    }
+    return newRandomColorIndex;
+}
+
 function initColors(primaryColor, secondaryColor) {
     setCardsColor(primaryColor, secondaryColor);
 
@@ -135,7 +143,11 @@ function init() {
 function setupChangeColorButton() {
     const changeColorButton = document.querySelector('#change-color');
     changeColorButton.addEventListener('click', () => {
-        randomColorIndex = getRandomColorIndex();
+        randomColorIndex = getDifferentRandomColorIndex();
+        changeColorButton.style.animationName = 'reload-animation';
+        changeColorButton.style.animationDuration = '1s';
+        changeColorButton.style.animationFillMode = 'forwards';
+        setTimeout(() => changeColorButton.style.animationName = '', 1000);
 
         initColors(hexToRgb(getLineColor()), hexToRgb(getDotColor()));
     });
