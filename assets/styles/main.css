@@ -54,7 +54,9 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-direction: column;
+
+    flex-direction: row;
+    flex-wrap: wrap;
 
     color: white;
 
