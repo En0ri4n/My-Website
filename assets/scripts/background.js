@@ -7,6 +7,9 @@ canvas.height = window.innerHeight;
 
 let particlesArray;
 
+let delta = 15;
+let oldTime = 0;
+
 class Particle {
     constructor(x, y, directionX, directionY, size) {
         this.x = x;
@@ -72,13 +75,22 @@ function connect() {
     }
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
-    for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
+function animate(currentTime) {
+    if(oldTime === 0) {
+        oldTime = currentTime;
     }
-    connect();
+
+    if((currentTime - oldTime) >= delta){
+        // Animation
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+        }
+        connect();
+
+        oldTime = currentTime;
+    }
+    requestAnimationFrame(animate);
 }
 
 window.addEventListener('resize', function () {
@@ -89,5 +101,5 @@ window.addEventListener('resize', function () {
 
 
 init();
-animate();
+requestAnimationFrame(animate);
 
