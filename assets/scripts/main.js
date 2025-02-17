@@ -72,12 +72,6 @@ function adjustBrightness(color, percent) {
 function setCardsColor(primaryColor, secondaryColor) {
     primaryColor = adjustBrightness(primaryColor, -20);
     getCards().forEach(c => c.style.backgroundColor = `rgba(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b}, 0.9)`);
-
-    secondaryColor = adjustBrightness(secondaryColor, -20);
-    document.querySelectorAll('#card-portfolio > .project > .project-row p a').forEach(a =>
-    {
-        a.style.color = `rgba(${secondaryColor.r}, ${secondaryColor.g}, ${secondaryColor.b}, 1)`
-    });
 }
 
 function setSocialMediaColor(primaryColor, secondaryColor) {
@@ -106,21 +100,17 @@ function createScrollbarStyle(color) {
     style.innerHTML = `
         ::-webkit-scrollbar {
             width: 8px;
-            transition: all ease-in-out 0.5s;
         }
         ::-webkit-scrollbar-track {
             background: rgba(${darkColor.r}, ${darkColor.g}, ${darkColor.b}, 0.8);
             border-radius: 8px;
-            transition: all ease-in-out 0.5s;
         }
         ::-webkit-scrollbar-thumb {
             background: #A6A6A6;
             border-radius: 8px;
-            transition: all ease-in-out 0.5s;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #CDCDCD;
-            transition: all ease-in-out 0.5s;
         }
     `;
     document.head.appendChild(style);

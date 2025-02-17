@@ -32,7 +32,7 @@ body {
     align-items: center;
     flex-direction: row;
 
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);
     border-radius: 10px;
     h1 {
         padding: 0.2rem;
@@ -76,6 +76,11 @@ body {
 
         transition: all 1s ease-in-out;
 
+        &.disabled {
+            pointer-events: none;
+            opacity: 0;
+        }
+
         /* When a top card is opened */
         &.top.disabled-from-top, &.bottom.disabled-from-top {
             pointer-events: none;
@@ -87,7 +92,6 @@ body {
             pointer-events: none;
             opacity: 0;
             height: 0;
-            width: 0;
         }
         &.bottom.disabled-from-bottom {
             pointer-events: none;
@@ -239,6 +243,230 @@ body {
     }
 }
 
+#card-cv-resume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-decoration: none;
+        color: #000;
+        background-color: #fff;
+        font-weight: bold;
+        text-align: center;
+
+        border-radius: 50%;
+
+        width: 30px;
+        height: 30px;
+
+        padding: 0.5rem;
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+            background-color: #000;
+            color: #fff;
+        }
+    }
+
+    iframe {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}
+
+#card-portfolio {
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+
+    .project {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        margin: 1rem;
+        border-radius: 20px;
+        background-color: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+            transform: scale(1.01);
+        }
+
+        .project-row {
+            display: flex;
+            width: 100%;
+
+            .project-description {
+                display: flex;
+                flex-direction: column;
+
+                row-gap: 0.5rem;
+
+                p {
+                    flex: 1 0 auto;
+                    text-align: justify;
+
+                    a {
+                        background-color: transparent;
+                        padding: 0;
+                        color: white;
+
+                        &:hover {
+                            color: black;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            img {
+                flex: 0 1;
+                width: 25%;
+                margin: 1rem;
+                border-radius: 20px;
+                object-fit: contain;
+            }
+
+            .project-link {
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                margin-top: 1rem;
+
+                a {
+                    width: 40px;
+                    height: 40px;
+                    text-decoration: none;
+                    color: black;
+
+                    padding: 0.5rem;
+
+                    border-radius: 50%;
+                    background-color: #fff;
+                    transition: all 0.5s ease-in-out;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        background-color: #000;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: all 0.5s ease-in-out;
+
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+    }
+}
+
+#card-skills {
+    padding: 1rem;
+
+    .skill-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+
+        width: 100%;
+
+        .skill-category {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.5rem;
+
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+
+            .skill-row {
+                display: flex;
+                flex-direction: row;
+                column-gap: 1rem;
+                row-gap: 1rem;
+                flex-wrap: wrap;
+
+                .skill {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    row-gap: 0.8rem;
+                    background-color: rgba(255, 255, 255, 0.25);
+                    border-radius: 10px;
+                    padding: 0 0.5rem;
+
+                    .skill-icon {
+                        /*background-color: rgba(255, 255, 255, 0.25);*/
+                        width: 5rem;
+                        padding: 0.5rem;
+                        border-radius: 10px;
+                        transition: all 0.5s ease-in-out;
+                        object-fit: contain;
+
+                        &:hover {
+                            transform: scale(1.1);
+                            background-color: rgba(255, 255, 255, 0.4);
+                        }
+                    }
+
+                    .skill-name {
+                        text-align: center;
+                    }
+
+                    .skill-level {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex: 1 1 auto;
+                        background-color: #000;
+                        color: #fff;
+                        padding: 0.5rem;
+                        border-radius: 10px;
+                        transition: all 0.5s ease-in-out;
+
+                        &:hover {
+                            background-color: #fff;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 #card-contact {
     display: flex;
     justify-content: center;
@@ -327,84 +555,6 @@ body {
     }
 }
 
-#card-cv-resume {
-    iframe {
-        width: 100%;
-    }
-}
-
-#card-portfolio {
-    display: flex;
-    flex-direction: column;
-
-    overflow-x: hidden;
-
-    .project {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-        margin: 1rem;
-        border-radius: 20px;
-        background-color: rgba(0, 0, 0, 0.3);
-        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
-        transition: all 0.5s ease-in-out;
-
-        &:hover {
-            transform: scale(1.01);
-        }
-
-        .project-row {
-            display: flex;
-            width: 100%;
-
-            p {
-                flex: 1 1 75%;
-                text-align: justify;
-
-                a {
-                    background-color: transparent;
-                    padding: 0;
-                    color: white;
-
-                    &:hover {
-                        color: black;
-                        text-decoration: underline;
-                    }
-                }
-            }
-
-            img {
-                flex: 0 1 auto;
-                margin: 1rem;
-                border-radius: 20px;
-            }
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        a {
-            text-decoration: none;
-            color: #000;
-            font-weight: bold;
-            text-align: center;
-            padding: 0.5rem;
-            border-radius: 10px;
-            background-color: #fff;
-            transition: all 0.5s ease-in-out;
-
-            &:hover {
-                background-color: #000;
-                color: #fff;
-            }
-        }
-    }
-}
-
 #zoomable-image-container {
     display: none;
     position: absolute;
@@ -412,10 +562,11 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
 
     img {
+        background-color: rgba(0, 0, 0, 1);
         position: absolute;
         top: 50%;
         left: 50%;
