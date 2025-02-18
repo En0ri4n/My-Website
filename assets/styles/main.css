@@ -32,7 +32,7 @@ body {
     align-items: center;
     flex-direction: row;
 
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.45);
     border-radius: 10px;
     h1 {
         padding: 0.2rem;
@@ -119,9 +119,9 @@ body {
                 justify-content: center;
                 align-items: center;
                 h1 {
-                    transition: all 0.5s ease-in-out;
+                    transition: all 1s ease-in-out;
                     text-align: center;
-                    font-size: 3cqh;
+                    font-size: 1.6em;
                 }
             }
 
