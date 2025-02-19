@@ -696,8 +696,15 @@ body {
     }
 
     #card-description {
+        row-gap: 3rem;
         .paragraph {
-            flex-direction: column;
+            flex-direction: column !important;
+            row-gap: 1rem;
+
+            &:nth-child(even) {
+                flex-direction: column !important;
+            }
+
             img {
                 width: 50%;
             }
